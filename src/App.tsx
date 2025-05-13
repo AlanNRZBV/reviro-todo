@@ -1,6 +1,6 @@
 const App = () => (
     <>
-      test
+      <div className="text-primary">test</div>
     </>
 );
 
