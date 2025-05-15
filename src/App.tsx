@@ -1,7 +1,7 @@
 const App = () => (
-    <>
-      <div className="text-primary">test</div>
-    </>
+    <div className="flex h-full">
+      <div className="mx-auto">test</div>
+    </div>
 );
 
 export default App
