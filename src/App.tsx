@@ -7,12 +7,7 @@ import {
 	SelectValue,
 } from '@/components/ui/select';
 import { useState } from 'react';
-
-interface Todo {
-	_id: string;
-	text: string;
-	status: 'completed' | 'new' | 'inProgress';
-}
+import TasksContainer from '@/components/TasksContainer/TasksContainer.tsx';
 
 const test: Todo[] = [{ _id: 'kek', text: 'test', status: 'new' }];
 
@@ -20,7 +15,6 @@ const App = () => {
 	const [tasks, setTasks] = useState<Todo[]>(test);
 	const [input, setInput] = useState<string>('');
 	const [show, setShow] = useState(false);
-	const isEmpty = tasks.length === 0;
 
 	const toggleModal = () => {
 		setShow(!show);
@@ -81,17 +75,7 @@ const App = () => {
 					<button>switch</button>
 				</div>
 				<div className="flex flex-col">
-					{isEmpty && <div>no tasks</div>}
-					{tasks.map((item) => (
-						<div key={item._id} className="flex">
-							<input type="checkbox" />
-							<div>{item.text}</div>
-							<div>
-								<button>edit</button>
-								<button>delete</button>
-							</div>
-						</div>
-					))}
+					<TasksContainer tasks={tasks} />
 				</div>
 				<button onClick={toggleModal} className="mt-auto mr-2 mb-8 self-end">
 					toggleModal
