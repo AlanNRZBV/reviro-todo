@@ -6,10 +6,11 @@
 
 @theme {
     --color-custom-purple: #6C63FF;
+    --color-custom-purple-dark: #534CC2;
     --color-custom-white: #F7F7F7;
     --color-custom-black: #252525;
     --font-kanit: 'Kanit', sans-serif;
-
+    --shadow-equal: 0 0 4px 0 rgba(108, 99, 255,1);
 }
 
 @theme inline {

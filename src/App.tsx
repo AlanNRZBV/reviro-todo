@@ -7,7 +7,8 @@ import {
 	SelectValue,
 } from '@/components/ui/select';
 import { useState } from 'react';
-import TasksContainer from '@/components/Tasks/TasksContainer.tsx';
+import TasksContainer from '@/components/tasks/TasksContainer.tsx';
+import ToggleModalButton from '@/components/buttons/ToggleModalButton.tsx';
 
 const test: Todo[] = [
 	{ _id: 'kek', text: 'test', isComplete: false, isNew: false },
@@ -95,9 +96,7 @@ const App = () => {
 				<div className="">
 					<TasksContainer tasks={tasks} onStatusChange={statusToggle} />
 				</div>
-				<button onClick={toggleModal} className="mt-auto mr-2 mb-8 self-end">
-					toggleModal
-				</button>
+				<ToggleModalButton onClick={toggleModal} />
 			</div>
 		</div>
 	);

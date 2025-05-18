@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import TaskItem from '@/components/Tasks/TaskItem.tsx';
+import TaskItem from '@/components/tasks/TaskItem.tsx';
 
 interface Props {
 	tasks: Todo[];
