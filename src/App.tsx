@@ -7,9 +7,18 @@ import {
 	SelectValue,
 } from '@/components/ui/select';
 import { useState } from 'react';
-import TasksContainer from '@/components/TasksContainer/TasksContainer.tsx';
+import TasksContainer from '@/components/Tasks/TasksContainer.tsx';
 
-const test: Todo[] = [{ _id: 'kek', text: 'test', status: 'new' }];
+const test: Todo[] = [
+	{ _id: 'kek', text: 'test', isComplete: false, isNew: false },
+	{ _id: 'kekas', text: '23423423', isComplete: false, isNew: true },
+	{
+		_id: 'kekasdas',
+		text: 'adsfgsdfgsdfgsdfasdfg',
+		isComplete: true,
+		isNew: false,
+	},
+];
 
 const App = () => {
 	const [tasks, setTasks] = useState<Todo[]>(test);
@@ -24,10 +33,19 @@ const App = () => {
 		const newTask: Todo = {
 			_id: crypto.randomUUID(),
 			text: input,
-			status: 'new',
+			isComplete: false,
+			isNew: true,
 		};
 		setTasks((prevState) => [...prevState, newTask]);
 		setShow(!show);
+	};
+
+	const statusToggle = (_id: string) => {
+		setTasks((prevState) =>
+			prevState.map((item) =>
+				item._id === _id ? { ...item, isComplete: !item.isComplete } : item,
+			),
+		);
 	};
 
 	return (
@@ -74,8 +92,8 @@ const App = () => {
 					</Select>
 					<button>switch</button>
 				</div>
-				<div className="flex flex-col">
-					<TasksContainer tasks={tasks} />
+				<div className="">
+					<TasksContainer tasks={tasks} onStatusChange={statusToggle} />
 				</div>
 				<button onClick={toggleModal} className="mt-auto mr-2 mb-8 self-end">
 					toggleModal

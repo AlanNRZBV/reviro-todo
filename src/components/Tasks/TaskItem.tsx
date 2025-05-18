@@ -1,0 +1,61 @@
+import { type FC } from 'react';
+import { Checkbox } from '@/components/ui/checkbox';
+
+interface Props {
+	task: Todo;
+	index: number;
+	onStatusChange: (arg: string) => void;
+}
+
+const TaskItem: FC<Props> = ({ task, index, onStatusChange }) => {
+	const { _id, isComplete, isNew, text } = task;
+
+	return (
+		<div
+			key={_id}
+			className="border-b-custom-purple mb-[17px] flex items-center border-b pb-[17px] last-of-type:mb-0 last-of-type:border-0 hover:cursor-pointer"
+		>
+			<Checkbox
+				checked={isComplete}
+				onCheckedChange={() => onStatusChange(_id)}
+				className="data-[state=checked]:bg-custom-purple border-custom-purple mr-[17px] h-[26px] w-[26px] border data-[state=checked]:border-0"
+				id={`task-checkbox-${index}`}
+			/>
+			<label
+				htmlFor={`task-checkbox-${index}`}
+				className={`mr-auto text-xl uppercase ${isComplete ? 'text-[rgba(37,37,37,0.5)] line-through' : ''}`}
+			>
+				{text}#{index + 1}
+			</label>
+			{isNew && <span>new</span>}
+			<div className="ml-[17px] flex max-h-[18px] items-center gap-2.5">
+				<button className="group">
+					<img
+						src="src/assets/icon_pencil.svg"
+						alt="edit task button"
+						className="h-[18px] w-[18px] group-hover:hidden hover:cursor-pointer"
+					/>
+					<img
+						src="src/assets/icon_pencil_active.svg"
+						alt="edit task button"
+						className="hidden h-[18px] w-[18px] group-hover:block hover:cursor-pointer"
+					/>
+				</button>
+				<button className="group">
+					<img
+						src="src/assets/icon_trash.svg"
+						alt="delete task button"
+						className="h-[18px] w-[18px] group-hover:hidden hover:cursor-pointer"
+					/>
+					<img
+						src="src/assets/icon_trash_active.svg"
+						alt="delete task button"
+						className="hidden h-[18px] w-[18px] group-hover:block hover:cursor-pointer"
+					/>
+				</button>
+			</div>
+		</div>
+	);
+};
+
+export default TaskItem;
