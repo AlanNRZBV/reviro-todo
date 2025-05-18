@@ -3,4 +3,5 @@ declare interface Todo {
 	text: string;
 	isComplete: boolean;
 	isNew: boolean;
+	createdAt: string;
 }

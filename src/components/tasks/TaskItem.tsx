@@ -1,5 +1,6 @@
 import { type FC } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
+import { isTaskNew } from '@/lib/utils.ts';
 
 interface Props {
 	task: Todo;
@@ -8,7 +9,9 @@ interface Props {
 }
 
 const TaskItem: FC<Props> = ({ task, index, onStatusChange }) => {
-	const { _id, isComplete, isNew, text } = task;
+	const { _id, isComplete, text, createdAt } = task;
+
+	const isNew = isTaskNew(createdAt);
 
 	return (
 		<div
@@ -27,7 +30,11 @@ const TaskItem: FC<Props> = ({ task, index, onStatusChange }) => {
 			>
 				{text}#{index + 1}
 			</label>
-			{isNew && <span>new</span>}
+			{isNew && (
+				<span className="text-custom-white bg-custom-purple ml-2 rounded-sm px-2 text-xs">
+					new
+				</span>
+			)}
 			<div className="ml-[17px] flex max-h-[18px] items-center gap-2.5">
 				<button className="group">
 					<img

@@ -9,6 +9,7 @@
     --color-custom-purple-dark: #534CC2;
     --color-custom-white: #F7F7F7;
     --color-custom-black: #252525;
+    --color-custom-purple-light:#C3C1E5;
     --font-kanit: 'Kanit', sans-serif;
     --shadow-equal: 0 0 4px 0 rgba(108, 99, 255,1);
 }
@@ -120,17 +121,5 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
-
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-
-    }
-  body {
-    @apply bg-background text-foreground;
-
-    }
 
 }
