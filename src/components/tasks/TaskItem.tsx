@@ -3,7 +3,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { isTaskNew } from '@/lib/utils.ts';
 
 interface Props {
-	task: Todo;
+	task: ITask;
 	index: number;
 	onStatusChange: (arg: string) => void;
 }

@@ -1,21 +1,14 @@
-import { Input } from '@/components/ui/input.tsx';
 import { Toaster } from '@/components/ui/sonner';
-
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select';
 import { useState } from 'react';
 import TasksContainer from '@/components/tasks/TasksContainer.tsx';
 import ToggleModalButton from '@/components/buttons/ToggleModalButton.tsx';
 import Modal from '@/components/Modal.tsx';
 import { toast } from 'sonner';
 import { getNow } from '@/lib/utils.ts';
+import Toolbar from '@/components/Toolbar.tsx';
+import TaskContextProvider from '@/components/context/TaskContextProvider.tsx';
 
-const test: Todo[] = [
+const test: ITask[] = [
 	{
 		_id: 'kek',
 		text: 'test',
@@ -40,7 +33,7 @@ const test: Todo[] = [
 ];
 
 const App = () => {
-	const [tasks, setTasks] = useState<Todo[]>(test);
+	const [tasks, setTasks] = useState<ITask[]>(test);
 	const [show, setShow] = useState(false);
 
 	const toggleModal = () => {
@@ -53,7 +46,7 @@ const App = () => {
 			return;
 		}
 
-		const newTask: Todo = {
+		const newTask: ITask = {
 			_id: crypto.randomUUID(),
 			text: input,
 			isComplete: false,
@@ -73,35 +66,26 @@ const App = () => {
 	};
 
 	return (
-		<div className="font-kanit relative flex h-full">
-			<Toaster />
-			<Modal addTask={addTask} onToggle={toggleModal} show={show} />
-			<div className="mx-auto flex flex-col items-center border border-amber-600">
-				<div className="pt-[2.5rem]">
-					<h1 className="text-custom-black mb-lg text-[1.625rem] font-medium uppercase">
-						todo list
-					</h1>
+		<TaskContextProvider>
+			<div className="font-kanit relative flex h-full">
+				<Toaster />
+				<Modal addTask={addTask} onToggle={toggleModal} show={show} />
+				<div className="mx-auto flex flex-col items-center border border-amber-600 xl:w-[750px]">
+					<div className="pt-[2.5rem]">
+						<h1 className="text-custom-black mb-lg text-[1.625rem] font-medium uppercase">
+							todo list
+						</h1>
+					</div>
+					<div className="flex w-full">
+						<Toolbar />
+					</div>
+					<div className="">
+						<TasksContainer tasks={tasks} onStatusChange={statusToggle} />
+					</div>
+					<ToggleModalButton onClick={toggleModal} />
 				</div>
-				<div className="flex">
-					<Input />
-					<Select>
-						<SelectTrigger className="w-[180px]">
-							<SelectValue placeholder="Theme" />
-						</SelectTrigger>
-						<SelectContent>
-							<SelectItem value="light">Light</SelectItem>
-							<SelectItem value="dark">Dark</SelectItem>
-							<SelectItem value="system">System</SelectItem>
-						</SelectContent>
-					</Select>
-					<button>switch</button>
-				</div>
-				<div className="">
-					<TasksContainer tasks={tasks} onStatusChange={statusToggle} />
-				</div>
-				<ToggleModalButton onClick={toggleModal} />
 			</div>
-		</div>
+		</TaskContextProvider>
 	);
 };
 

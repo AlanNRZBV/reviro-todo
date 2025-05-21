@@ -29,6 +29,7 @@ const Modal: FC<Props> = ({ addTask, onToggle, show }) => {
 				<Input
 					type="text"
 					value={input}
+					name="serach"
 					onChange={(e) => {
 						setInput(e.target.value);
 					}}
