@@ -2,6 +2,7 @@ import { useTaskContext } from '@/components/context/hook.ts';
 import CustomInput from '@/components/CustomInput.tsx';
 import CustomSelect from '@/components/select/CustomSelect.tsx';
 import { SELECT_OPTIONS } from '@/lib/mockData.ts';
+import ThemeToggleButton from '@/components/buttons/ThemeToggleButton.tsx';
 
 const Toolbar = () => {
 	const { searchQuery, setSearchQuery, filter, setFilter } = useTaskContext();
@@ -20,7 +21,7 @@ const Toolbar = () => {
 				value={filter}
 				options={SELECT_OPTIONS}
 			/>
-			<button>switch</button>
+			<ThemeToggleButton />
 		</div>
 	);
 };

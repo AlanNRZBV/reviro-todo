@@ -67,7 +67,7 @@ const App = () => {
 
 	return (
 		<TaskContextProvider>
-			<div className="font-kanit relative flex h-full">
+			<div className="font-kanit bg-custom-white transition-color dark:bg-custom-black relative flex h-full duration-150">
 				<Toaster />
 				<Modal addTask={addTask} onToggle={toggleModal} show={show} />
 				<div className="mx-auto flex flex-col items-center border border-amber-600 xl:w-[750px]">

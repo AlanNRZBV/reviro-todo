@@ -28,7 +28,7 @@ const CustomInput: FC<Props> = ({
 	return (
 		<div
 			className={cn(
-				'group focus-within:border-custom-purple-light-40 inset-ring-custom-purple group flex w-full items-center rounded-[5px] border-2 border-transparent px-4 py-2 inset-ring outline-none',
+				'group focus-within:ring-custom-purple-light-40 inset-ring-custom-purple group flex w-full items-center rounded-[5px] px-4 py-2 inset-ring outline-none focus-within:ring-2',
 				className,
 			)}
 			style={style}

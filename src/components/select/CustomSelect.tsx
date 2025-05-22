@@ -15,7 +15,7 @@ const CustomSelect: FC<Props> = ({ value, onChange, options }) => {
 				onClick={() => {
 					setShow(!show);
 				}}
-				className="bg-custom-purple hover:shadow-equal focus:inset-ring-custom-purple focus:bg-custom-purple-dark text-custom-white relative flex w-full justify-between rounded-[5px] p-2.5 outline-none focus:inset-ring-2"
+				className="bg-custom-purple hover:shadow-equal focus:inset-ring-custom-purple focus:bg-custom-purple-dark text-custom-white relative flex w-full justify-between rounded-[5px] px-2.5 py-1.5 outline-none focus:inset-ring-2"
 			>
 				<span className="text-lg font-medium uppercase">{value}</span>
 				<img
@@ -25,7 +25,7 @@ const CustomSelect: FC<Props> = ({ value, onChange, options }) => {
 				/>
 			</button>
 			<div
-				className={`border-custom-purple bg-custom-white absolute flex flex-col rounded-[5px] border transition-all delay-150 ${!show ? 'pointer-events-auto scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'}`}
+				className={`border-custom-purple bg-custom-white absolute flex flex-col rounded-[5px] border transition-all delay-150 ${show ? 'pointer-events-auto scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'}`}
 			>
 				{options.map(({ value, title }, index) => (
 					<CustomSelectItem
