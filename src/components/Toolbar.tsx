@@ -1,12 +1,7 @@
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select.tsx';
 import { useTaskContext } from '@/components/context/hook.ts';
 import CustomInput from '@/components/CustomInput.tsx';
+import CustomSelect from '@/components/select/CustomSelect.tsx';
+import { SELECT_OPTIONS } from '@/lib/mockData.ts';
 
 const Toolbar = () => {
 	const { searchQuery, setSearchQuery, filter, setFilter } = useTaskContext();
@@ -18,23 +13,13 @@ const Toolbar = () => {
 				type="text"
 				value={searchQuery}
 				onChange={setSearchQuery}
+				isSearch
 			/>
-			<Select
+			<CustomSelect
+				onChange={(arg) => setFilter(arg)}
 				value={filter}
-				onValueChange={(v) => {
-					setFilter(v);
-				}}
-			>
-				<SelectTrigger className="bg-custom-purple text-custom-white! shadow-equal! rounded-[5px] p-2.5 text-lg font-medium! uppercase">
-					<SelectValue placeholder="All" />
-				</SelectTrigger>
-				<SelectContent className="border-custom-purple">
-					<SelectItem value="all">All</SelectItem>
-					<SelectItem value="complete">Complete</SelectItem>
-					<SelectItem value="incomplete">Incomplete</SelectItem>
-					<SelectItem value="new">New</SelectItem>
-				</SelectContent>
-			</Select>
+				options={SELECT_OPTIONS}
+			/>
 			<button>switch</button>
 		</div>
 	);

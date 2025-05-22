@@ -12,6 +12,7 @@ interface Props {
 	onChange: (arg: string) => void;
 	className?: string;
 	style?: CSSProperties;
+	isSearch?: boolean;
 }
 
 const CustomInput: FC<Props> = ({
@@ -21,6 +22,7 @@ const CustomInput: FC<Props> = ({
 	onChange,
 	className,
 	style,
+	isSearch,
 	...props
 }) => {
 	return (
@@ -41,9 +43,11 @@ const CustomInput: FC<Props> = ({
 				className="placeholder:text-custom-purple-light text-custom-purple caret-custom-purple w-full outline-none"
 				{...props}
 			/>
-			<span className="ml-2 h-[21px] w-[21px]">
-				<img src="src/assets/icon_search_light.svg" alt="search input" />
-			</span>
+			{isSearch && (
+				<span className="ml-2 h-[21px] w-[21px]">
+					<img src="src/assets/icon_search_light.svg" alt="search input" />
+				</span>
+			)}
 		</div>
 	);
 };

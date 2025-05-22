@@ -23,8 +23,6 @@ const TasksContainer: FC<Props> = ({ tasks, onStatusChange }) => {
 		return matchesSearch && matchesFilter;
 	});
 
-	console.log(tasks);
-
 	return (
 		<>
 			{isEmpty && <div>no tasks</div>}
