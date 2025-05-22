@@ -1,5 +1,4 @@
 import { type FC } from 'react';
-import { Button } from '@/components/ui/button.tsx';
 
 interface Props {
 	onClick: <T>(arg: T) => void;
@@ -10,16 +9,16 @@ interface Props {
 const CustomButton: FC<Props> = ({ onClick, text, variant }) => {
 	const isPrimary = variant === 'primary';
 	return (
-		<Button
+		<button
 			onClick={onClick}
-			className={`${isPrimary ? 'bg-custom-purple hover:bg-custom-purple focus:bg-custom-purple-dark focus:inset-ring-custom-purple' : 'bg-custom-white hover:bg-custom-white inset-ring-custom-purple focus:bg-custom-purple-dark inset-ring-1'} focus::shadow-equal group px-[1.375rem] py-2.5`}
+			className={`${isPrimary ? 'bg-custom-purple' : 'bg-custom-white border-custom-purple border active:border-none'} active:inset-ring-custom-purple active:bg-custom-purple-dark focus:shadow-equal group rounded-[5px] px-[1.375rem] py-2.5 outline-none active:inset-ring-2`}
 		>
 			<span
-				className={`${isPrimary ? 'text-custom-white' : 'text-custom-purple group-focus:text-custom-white'} text-lg font-medium uppercase`}
+				className={`${isPrimary ? 'text-custom-white' : 'text-custom-purple group-active:text-custom-white'} text-lg font-medium uppercase`}
 			>
 				{text}
 			</span>
-		</Button>
+		</button>
 	);
 };
 

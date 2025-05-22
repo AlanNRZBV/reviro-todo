@@ -9,9 +9,11 @@
     --color-custom-purple-dark: #534CC2;
     --color-custom-white: #F7F7F7;
     --color-custom-black: #252525;
-    --color-custom-purple-light:#C3C1E5;
+    --color-custom-purple-ligth: #C3C1E5;
+    --color-custom-purple-light-20:#6C63FF20;
+    --color-custom-purple-light-40: #6C63FF40;
     --font-kanit: 'Kanit', sans-serif;
-    --shadow-equal: 0 0 4px 0 rgba(108, 99, 255,1);
+    --shadow-equal: 0 0 4px 0px rgba(108, 99, 255,1);
 }
 
 @theme inline {
