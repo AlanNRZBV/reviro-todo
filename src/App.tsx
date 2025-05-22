@@ -1,5 +1,5 @@
 import { Toaster } from '@/components/ui/sonner';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TasksContainer from '@/components/tasks/TasksContainer.tsx';
 import ToggleModalButton from '@/components/buttons/ToggleModalButton.tsx';
 import Modal from '@/components/Modal.tsx';
@@ -8,33 +8,28 @@ import { getNow } from '@/lib/utils.ts';
 import Toolbar from '@/components/Toolbar.tsx';
 import TaskContextProvider from '@/components/context/TaskContextProvider.tsx';
 
-const test: ITask[] = [
-	{
-		_id: 'kek',
-		text: 'test',
-		isComplete: false,
-		isNew: false,
-		createdAt: '2025-05-13T14:35:00.000Z',
-	},
-	{
-		_id: 'kekas',
-		text: '23423423',
-		isComplete: false,
-		isNew: true,
-		createdAt: '2025-05-13T14:35:00.000Z',
-	},
-	{
-		_id: 'kekasdas',
-		text: 'adsfgsdfgsdfgsdfasdfg',
-		isComplete: true,
-		isNew: false,
-		createdAt: '2025-05-17T14:35:00.000Z',
-	},
-];
-
 const App = () => {
-	const [tasks, setTasks] = useState<ITask[]>(test);
+	const [tasks, setTasks] = useState<ITask[]>([]);
 	const [show, setShow] = useState(false);
+
+	useEffect(() => {
+		try {
+			const savedTasks = localStorage.getItem('tasks');
+			if (savedTasks) {
+				setTasks(JSON.parse(savedTasks));
+			}
+		} catch (error) {
+			console.error('Ошибка при загрузке задач из localStorage:', error);
+		}
+	}, []);
+
+	useEffect(() => {
+		try {
+			localStorage.setItem('tasks', JSON.stringify(tasks));
+		} catch (error) {
+			console.error('Ошибка при сохранении задач в localStorage:', error);
+		}
+	}, [tasks]);
 
 	const toggleModal = () => {
 		setShow(!show);
