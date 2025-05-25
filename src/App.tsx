@@ -10,15 +10,24 @@ import TaskContextProvider from '@/components/context/TaskContextProvider.tsx';
 import { ThemeContextProvider } from '@/components/context/ThemeContextProvider.tsx';
 
 const App = () => {
-	const [state, setState] = useState<AppState>(loadState());
+	const [state, setState] = useState<AppState>(
+		loadState((e) => {
+			toast('Не могу загрузить данные' + e);
+		}),
+	);
 	const [show, setShow] = useState(false);
-
+	const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
 	useEffect(() => {
-		saveState(state);
+		saveState(state, (e) => {
+			toast('Не могу сохранить данные' + e);
+		});
 	}, [state]);
 
 	const toggleModal = () => {
 		setShow(!show);
+		if (!show) {
+			setEditingTaskId(null);
+		}
 	};
 
 	const addTask = (input: string) => {
@@ -41,6 +50,20 @@ const App = () => {
 		}));
 		setShow(!show);
 	};
+
+	const editTask = (newText: string) => {
+		if (editingTaskId) {
+			setState((prev) => ({
+				...prev,
+				tasks: prev.tasks.map((task) =>
+					task._id === editingTaskId ? { ...task, text: newText } : task,
+				),
+			}));
+			setEditingTaskId(null);
+			setShow(false);
+		}
+	};
+
 	const statusToggle = (_id: string) => {
 		setState((prev) => ({
 			...prev,
@@ -50,12 +73,34 @@ const App = () => {
 		}));
 	};
 
+	const deleteTask = (_id: string) => {
+		setState((prev) => ({
+			...prev,
+			tasks: prev.tasks.filter((item) => item._id !== _id),
+		}));
+	};
+
+	const openEditModal = (_id: string) => {
+		setEditingTaskId(_id);
+		setShow(true);
+	};
+
 	return (
 		<ThemeContextProvider>
 			<TaskContextProvider appState={state} setAppState={setState}>
-				<div className="font-kanit bg-custom-white transition-color dark:bg-custom-black relative flex h-full duration-150">
+				<div className="font-kanit bg-custom-white transition-color dark:bg-custom-black relative flex h-full duration-150 max-sm:px-2">
 					<Toaster />
-					<Modal addTask={addTask} onToggle={toggleModal} show={show} />
+					<Modal
+						addTask={addTask}
+						onToggle={toggleModal}
+						show={show}
+						editTask={editTask}
+						editingTask={
+							editingTaskId
+								? state.tasks.find((t) => t._id === editingTaskId)
+								: null
+						}
+					/>
 					<div className="mx-auto flex flex-col items-center xl:w-[750px]">
 						<div className="mb-[1.125rem] pt-[2.5rem]">
 							<h1 className="text-custom-black transition-color dark:text-custom-white mb-lg text-[1.625rem] font-medium uppercase duration-150">
@@ -69,6 +114,8 @@ const App = () => {
 							<TasksContainer
 								tasks={state.tasks}
 								onStatusChange={statusToggle}
+								onEdit={openEditModal}
+								onDelete={deleteTask}
 							/>
 						</div>
 						<ModalToggleButton onClick={toggleModal} />

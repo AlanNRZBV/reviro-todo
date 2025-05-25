@@ -6,9 +6,17 @@ interface Props {
 	task: ITask;
 	index: number;
 	onStatusChange: (arg: string) => void;
+	onDelete: (arg: string) => void;
+	onEdit: (arg: string) => void;
 }
 
-const TaskItem: FC<Props> = ({ task, index, onStatusChange }) => {
+const TaskItem: FC<Props> = ({
+	task,
+	index,
+	onStatusChange,
+	onDelete,
+	onEdit,
+}) => {
 	const { _id, isComplete, text, createdAt } = task;
 
 	const isNew = isTaskNew(createdAt);
@@ -36,7 +44,12 @@ const TaskItem: FC<Props> = ({ task, index, onStatusChange }) => {
 				</span>
 			)}
 			<div className="ml-[17px] flex max-h-[18px] items-center gap-2.5">
-				<button className="group">
+				<button
+					className="group"
+					onClick={() => {
+						onEdit(_id);
+					}}
+				>
 					<img
 						src="src/assets/icon_pencil.svg"
 						alt="edit task button"
@@ -48,7 +61,12 @@ const TaskItem: FC<Props> = ({ task, index, onStatusChange }) => {
 						className="hidden h-[18px] w-[18px] group-hover:block hover:cursor-pointer"
 					/>
 				</button>
-				<button className="group">
+				<button
+					className="group"
+					onClick={() => {
+						onDelete(_id);
+					}}
+				>
 					<img
 						src="src/assets/icon_trash.svg"
 						alt="delete task button"

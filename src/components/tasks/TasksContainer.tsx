@@ -5,9 +5,16 @@ import { useTaskContext, useTheme } from '@/components/context/hook.ts';
 interface Props {
 	tasks: ITask[];
 	onStatusChange: (arg: string) => void;
+	onDelete: (arg: string) => void;
+	onEdit: (arg: string) => void;
 }
 
-const TasksContainer: FC<Props> = ({ tasks, onStatusChange }) => {
+const TasksContainer: FC<Props> = ({
+	tasks,
+	onStatusChange,
+	onDelete,
+	onEdit,
+}) => {
 	const { searchQuery, filter } = useTaskContext();
 	const { isDark } = useTheme();
 	const isEmpty = tasks.length === 0;
@@ -52,6 +59,8 @@ const TasksContainer: FC<Props> = ({ tasks, onStatusChange }) => {
 						task={item}
 						index={index}
 						onStatusChange={onStatusChange}
+						onDelete={onDelete}
+						onEdit={onEdit}
 					/>
 				))}
 			</div>
