@@ -67,7 +67,7 @@ const App = () => {
 				<div className="font-kanit bg-custom-white transition-color dark:bg-custom-black relative flex h-full duration-150">
 					<Toaster />
 					<Modal addTask={addTask} onToggle={toggleModal} show={show} />
-					<div className="mx-auto flex flex-col items-center border border-amber-600 xl:w-[750px]">
+					<div className="mx-auto flex flex-col items-center xl:w-[750px]">
 						<div className="mb-[1.125rem] pt-[2.5rem]">
 							<h1 className="text-custom-black transition-color dark:text-custom-white mb-lg text-[1.625rem] font-medium uppercase duration-150">
 								todo list
@@ -76,7 +76,7 @@ const App = () => {
 						<div className="flex w-full">
 							<Toolbar />
 						</div>
-						<div className="">
+						<div className="w-full max-w-[520px]">
 							<TasksContainer tasks={tasks} onStatusChange={statusToggle} />
 						</div>
 						<ModalToggleButton onClick={toggleModal} />

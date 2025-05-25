@@ -16,7 +16,7 @@ const TaskItem: FC<Props> = ({ task, index, onStatusChange }) => {
 	return (
 		<div
 			key={_id}
-			className="border-b-custom-purple mb-[17px] flex items-center border-b pb-[17px] last-of-type:mb-0 last-of-type:border-0 hover:cursor-pointer"
+			className="border-b-custom-purple mb-[17px] flex w-full items-center border-b pb-[17px] last-of-type:mb-0 last-of-type:border-0 hover:cursor-pointer"
 		>
 			<Checkbox
 				checked={isComplete}

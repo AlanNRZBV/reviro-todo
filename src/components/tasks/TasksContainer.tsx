@@ -27,7 +27,7 @@ const TasksContainer: FC<Props> = ({ tasks, onStatusChange }) => {
 	return (
 		<>
 			{isEmpty && (
-				<div className="mt- mt-[1.875rem] flex flex-col items-center gap-[1.25rem]">
+				<div className="mt-[1.875rem] flex flex-col items-center gap-[1.25rem]">
 					<div>
 						<img
 							src="src/assets/no-content-light.png"
@@ -45,7 +45,7 @@ const TasksContainer: FC<Props> = ({ tasks, onStatusChange }) => {
 					</span>
 				</div>
 			)}
-			<div className="mt-[1.865rem] flex max-w-[520px] flex-col">
+			<div className="mt-[1.865rem] flex flex-col">
 				{filteredTasks.map((item, index) => (
 					<TaskItem
 						key={item._id}
