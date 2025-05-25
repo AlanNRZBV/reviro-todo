@@ -5,7 +5,7 @@ interface Props {
 	children: ReactNode;
 }
 
-export const ThemeProvider: FC<Props> = ({ children }) => {
+export const ThemeContextProvider: FC<Props> = ({ children }) => {
 	const [isDark, setIsDark] = useState(false);
 
 	useEffect(() => {

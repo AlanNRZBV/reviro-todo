@@ -6,12 +6,12 @@ interface Props {
 }
 
 const TaskContextProvider: FC<Props> = ({ children }) => {
-	const getInitialState = <T,>(key: string, defaultValue: T): T => {
+	const getInitialState = (key: string, defaultValue: string): string => {
 		try {
 			const item = localStorage.getItem(key);
 			return item ? JSON.parse(item) : defaultValue;
-		} catch (error) {
-			console.error(`Ошибка при чтении ${key} из localStorage:`, error);
+		} catch (e) {
+			console.error(e);
 			return defaultValue;
 		}
 	};
@@ -24,16 +24,16 @@ const TaskContextProvider: FC<Props> = ({ children }) => {
 	useEffect(() => {
 		try {
 			localStorage.setItem('searchQuery', JSON.stringify(searchQuery));
-		} catch (error) {
-			console.error('Ошибка при сохранении searchQuery в localStorage:', error);
+		} catch (e) {
+			console.error(e);
 		}
 	}, [searchQuery]);
 
 	useEffect(() => {
 		try {
 			localStorage.setItem('filter', JSON.stringify(filter));
-		} catch (error) {
-			console.error('Ошибка при сохранении filter в localStorage:', error);
+		} catch (e) {
+			console.error(e);
 		}
 	}, [filter]);
 

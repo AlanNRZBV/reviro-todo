@@ -7,28 +7,22 @@ import { toast } from 'sonner';
 import { getNow } from '@/lib/utils.ts';
 import Toolbar from '@/components/Toolbar.tsx';
 import TaskContextProvider from '@/components/context/TaskContextProvider.tsx';
-import { ThemeProvider } from '@/components/context/ThemeContextProvider.tsx';
+import { ThemeContextProvider } from '@/components/context/ThemeContextProvider.tsx';
 
 const App = () => {
-	const [tasks, setTasks] = useState<ITask[]>([]);
+	const tasksFromLocalStorage: ITask[] = localStorage.getItem('tasks')
+		? JSON.parse(localStorage.getItem('tasks') as string)
+		: [];
+
+	const [tasks, setTasks] = useState<ITask[]>(tasksFromLocalStorage);
 	const [show, setShow] = useState(false);
 
 	useEffect(() => {
 		try {
-			const savedTasks = localStorage.getItem('tasks');
-			if (savedTasks) {
-				setTasks(JSON.parse(savedTasks));
-			}
-		} catch (error) {
-			console.error('Ошибка при загрузке задач из localStorage:', error);
-		}
-	}, []);
-
-	useEffect(() => {
-		try {
 			localStorage.setItem('tasks', JSON.stringify(tasks));
-		} catch (error) {
-			console.error('Ошибка при сохранении задач в localStorage:', error);
+		} catch (e) {
+			console.error(e);
+			toast('Не могу сохранить задачи');
 		}
 	}, [tasks]);
 
@@ -49,6 +43,7 @@ const App = () => {
 			isNew: true,
 			createdAt: getNow(),
 		};
+
 		setTasks((prevState) => [...prevState, newTask]);
 		setShow(!show);
 	};
@@ -62,7 +57,7 @@ const App = () => {
 	};
 
 	return (
-		<ThemeProvider>
+		<ThemeContextProvider>
 			<TaskContextProvider>
 				<div className="font-kanit bg-custom-white transition-color dark:bg-custom-black relative flex h-full duration-150">
 					<Toaster />
@@ -83,7 +78,7 @@ const App = () => {
 					</div>
 				</div>
 			</TaskContextProvider>
-		</ThemeProvider>
+		</ThemeContextProvider>
 	);
 };
 
