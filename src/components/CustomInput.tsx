@@ -4,6 +4,7 @@ import {
 	type HTMLInputTypeAttribute,
 } from 'react';
 import { cn } from '@/lib/utils.ts';
+import { useTheme } from '@/components/context/hook.ts';
 
 interface Props {
 	type: HTMLInputTypeAttribute;
@@ -25,6 +26,7 @@ const CustomInput: FC<Props> = ({
 	isSearch,
 	...props
 }) => {
+	const { isDark } = useTheme();
 	return (
 		<div
 			className={cn(
@@ -45,7 +47,16 @@ const CustomInput: FC<Props> = ({
 			/>
 			{isSearch && (
 				<span className="ml-2 h-[21px] w-[21px]">
-					<img src="src/assets/icon_search_light.svg" alt="search input" />
+					<img
+						src="src/assets/icon_search_dark.svg"
+						alt="search input"
+						className={`${!isDark ? 'hidden' : 'block'}`}
+					/>
+					<img
+						src="src/assets/icon_search_light.svg"
+						alt="search input"
+						className={`${isDark ? 'hidden' : 'block'}`}
+					/>
 				</span>
 			)}
 		</div>

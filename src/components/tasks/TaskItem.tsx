@@ -21,12 +21,12 @@ const TaskItem: FC<Props> = ({ task, index, onStatusChange }) => {
 			<Checkbox
 				checked={isComplete}
 				onCheckedChange={() => onStatusChange(_id)}
-				className="data-[state=checked]:bg-custom-purple border-custom-purple mr-[17px] h-[26px] w-[26px] border data-[state=checked]:border-0"
+				className="data-[state=checked]:bg-custom-purple border-custom-purple mr-[17px] h-[26px] w-[26px] border outline-none data-[state=checked]:border-0"
 				id={`task-checkbox-${index}`}
 			/>
 			<label
 				htmlFor={`task-checkbox-${index}`}
-				className={`mr-auto text-xl uppercase ${isComplete ? 'text-[rgba(37,37,37,0.5)] line-through' : ''}`}
+				className={`dark:text-custom-white mr-auto text-xl uppercase ${isComplete ? 'text-[rgba(37,37,37,0.5)] line-through' : ''}`}
 			>
 				{text}#{index + 1}
 			</label>

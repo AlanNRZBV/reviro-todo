@@ -1,6 +1,6 @@
 import { type FC } from 'react';
 import TaskItem from '@/components/tasks/TaskItem.tsx';
-import { useTaskContext } from '@/components/context/hook.ts';
+import { useTaskContext, useTheme } from '@/components/context/hook.ts';
 
 interface Props {
 	tasks: ITask[];
@@ -9,6 +9,7 @@ interface Props {
 
 const TasksContainer: FC<Props> = ({ tasks, onStatusChange }) => {
 	const { searchQuery, filter } = useTaskContext();
+	const { isDark } = useTheme();
 	const isEmpty = tasks.length === 0;
 
 	const filteredTasks = tasks.filter((task) => {
@@ -25,7 +26,25 @@ const TasksContainer: FC<Props> = ({ tasks, onStatusChange }) => {
 
 	return (
 		<>
-			{isEmpty && <div>no tasks</div>}
+			{isEmpty && (
+				<div className="mt- mt-[1.875rem] flex flex-col items-center gap-[1.25rem]">
+					<div>
+						<img
+							src="src/assets/no-content-light.png"
+							alt="no tasks exist"
+							className={`${isDark ? 'hidden' : 'block'}`}
+						/>
+						<img
+							src="src/assets/no-content-dark.png"
+							alt="no tasks exist"
+							className={`${!isDark ? 'hidden' : 'block'}`}
+						/>
+					</div>
+					<span className="dark:text-custom-white text-custom-black text-[1.25rem]">
+						Empty...
+					</span>
+				</div>
+			)}
 			<div className="mt-[1.865rem] flex max-w-[520px] flex-col">
 				{filteredTasks.map((item, index) => (
 					<TaskItem
