@@ -5,7 +5,7 @@ interface Props {
 	onClick: () => void;
 }
 
-const ToggleModalButton: FC<Props> = ({ onClick }) => {
+const ModalToggleButton: FC<Props> = ({ onClick }) => {
 	return (
 		<Button
 			onClick={onClick}
@@ -22,4 +22,4 @@ const ToggleModalButton: FC<Props> = ({ onClick }) => {
 	);
 };
 
-export default ToggleModalButton;
+export default ModalToggleButton;

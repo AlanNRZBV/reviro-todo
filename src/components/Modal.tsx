@@ -22,9 +22,9 @@ const Modal: FC<Props> = ({ addTask, onToggle, show }) => {
 					setInput('');
 					onToggle();
 				}}
-				className="bg-custom-black absolute inset-0 h-full w-full opacity-75"
+				className="bg-custom-black absolute inset-0 z-40 h-full w-full opacity-75"
 			></div>
-			<div className="bg-custom-white absolute top-[7.375rem] right-[50%] flex w-[500px] translate-x-1/2 flex-col items-center rounded-2xl px-[1.875rem] py-[1.125rem]">
+			<div className="bg-custom-white absolute top-[7.375rem] right-[50%] z-50 flex w-[500px] translate-x-1/2 flex-col items-center rounded-2xl px-[1.875rem] py-[1.125rem]">
 				<span className="mb-6 text-2xl font-medium uppercase">new note</span>
 				<CustomInput
 					onChange={setInput}

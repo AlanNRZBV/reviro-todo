@@ -1,12 +1,13 @@
 import { Toaster } from '@/components/ui/sonner';
 import { useEffect, useState } from 'react';
 import TasksContainer from '@/components/tasks/TasksContainer.tsx';
-import ToggleModalButton from '@/components/buttons/ToggleModalButton.tsx';
+import ModalToggleButton from '@/components/buttons/ModalToggleButton.tsx';
 import Modal from '@/components/Modal.tsx';
 import { toast } from 'sonner';
 import { getNow } from '@/lib/utils.ts';
 import Toolbar from '@/components/Toolbar.tsx';
 import TaskContextProvider from '@/components/context/TaskContextProvider.tsx';
+import { ThemeProvider } from '@/components/context/ThemeContextProvider.tsx';
 
 const App = () => {
 	const [tasks, setTasks] = useState<ITask[]>([]);
@@ -61,26 +62,28 @@ const App = () => {
 	};
 
 	return (
-		<TaskContextProvider>
-			<div className="font-kanit bg-custom-white transition-color dark:bg-custom-black relative flex h-full duration-150">
-				<Toaster />
-				<Modal addTask={addTask} onToggle={toggleModal} show={show} />
-				<div className="mx-auto flex flex-col items-center border border-amber-600 xl:w-[750px]">
-					<div className="pt-[2.5rem]">
-						<h1 className="text-custom-black mb-lg text-[1.625rem] font-medium uppercase">
-							todo list
-						</h1>
+		<ThemeProvider>
+			<TaskContextProvider>
+				<div className="font-kanit bg-custom-white transition-color dark:bg-custom-black relative flex h-full duration-150">
+					<Toaster />
+					<Modal addTask={addTask} onToggle={toggleModal} show={show} />
+					<div className="mx-auto flex flex-col items-center border border-amber-600 xl:w-[750px]">
+						<div className="mb-[1.125rem] pt-[2.5rem]">
+							<h1 className="text-custom-black transition-color dark:text-custom-white mb-lg text-[1.625rem] font-medium uppercase duration-150">
+								todo list
+							</h1>
+						</div>
+						<div className="flex w-full">
+							<Toolbar />
+						</div>
+						<div className="">
+							<TasksContainer tasks={tasks} onStatusChange={statusToggle} />
+						</div>
+						<ModalToggleButton onClick={toggleModal} />
 					</div>
-					<div className="flex w-full">
-						<Toolbar />
-					</div>
-					<div className="">
-						<TasksContainer tasks={tasks} onStatusChange={statusToggle} />
-					</div>
-					<ToggleModalButton onClick={toggleModal} />
 				</div>
-			</div>
-		</TaskContextProvider>
+			</TaskContextProvider>
+		</ThemeProvider>
 	);
 };
 

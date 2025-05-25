@@ -1,29 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useTheme } from '@/components/context/hook.ts';
 
 const ThemeToggleButton = () => {
-	const [isDark, setIsDark] = useState(false);
-
-	useEffect(() => {
-		const stored = localStorage.getItem('theme');
-
-		if (stored) {
-			document.documentElement.classList.toggle('dark', stored === 'dark');
-			setIsDark(stored === 'dark');
-		} else {
-			const prefersDark = window.matchMedia(
-				'(prefers-color-scheme: dark)',
-			).matches;
-			document.documentElement.classList.toggle('dark', prefersDark);
-			setIsDark(prefersDark);
-		}
-	}, []);
-
-	const toggleTheme = () => {
-		const nextIsDark = !isDark;
-		setIsDark(nextIsDark);
-		document.documentElement.classList.toggle('dark', nextIsDark);
-		localStorage.setItem('theme', nextIsDark ? 'dark' : 'light');
-	};
+	const { isDark, toggleTheme } = useTheme();
 
 	return (
 		<button
@@ -35,7 +13,7 @@ const ThemeToggleButton = () => {
 					src={
 						isDark ? 'src/assets/icon_halfmoon.svg' : 'src/assets/icon_sun.svg'
 					}
-					alt="theme toggle button - moon"
+					alt="theme toggle button"
 					className="object-cover"
 				/>
 			</span>

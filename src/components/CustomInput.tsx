@@ -28,7 +28,7 @@ const CustomInput: FC<Props> = ({
 	return (
 		<div
 			className={cn(
-				'group focus-within:ring-custom-purple-light-40 inset-ring-custom-purple group flex w-full items-center rounded-[5px] px-4 py-2 inset-ring outline-none focus-within:ring-2',
+				'group translate-all dark:inset-ring-custom-white dark:focus-within:ring-custom-white-40 focus-within:ring-custom-purple-light-40 inset-ring-custom-purple flex w-full items-center rounded-[5px] px-4 py-2 inset-ring duration-150 outline-none focus-within:ring-2',
 				className,
 			)}
 			style={style}
@@ -40,7 +40,7 @@ const CustomInput: FC<Props> = ({
 				onChange={(e) => {
 					onChange(e.target.value);
 				}}
-				className="placeholder:text-custom-purple-light text-custom-purple caret-custom-purple w-full outline-none"
+				className="placeholder:text-custom-purple-light translate-all dark:placeholder:text-custom-dark-grey text-custom-purple dark:caret-custom-white caret-custom-purple w-full duration-150 outline-none"
 				{...props}
 			/>
 			{isSearch && (
