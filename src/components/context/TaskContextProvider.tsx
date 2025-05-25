@@ -1,47 +1,28 @@
-import { type FC, type ReactNode, useEffect, useState } from 'react';
+import {
+	type Dispatch,
+	type FC,
+	type ReactNode,
+	type SetStateAction,
+} from 'react';
 import { TaskContext } from './TaskContext.ts';
 
 interface Props {
 	children: ReactNode;
+	appState: AppState;
+	setAppState: Dispatch<SetStateAction<AppState>>;
 }
 
-const TaskContextProvider: FC<Props> = ({ children }) => {
-	const getInitialState = (key: string, defaultValue: string): string => {
-		try {
-			const item = localStorage.getItem(key);
-			return item ? JSON.parse(item) : defaultValue;
-		} catch (e) {
-			console.error(e);
-			return defaultValue;
-		}
-	};
-
-	const [searchQuery, setSearchQuery] = useState(
-		getInitialState('searchQuery', ''),
-	);
-	const [filter, setFilter] = useState(getInitialState('filter', 'all'));
-
-	useEffect(() => {
-		try {
-			localStorage.setItem('searchQuery', JSON.stringify(searchQuery));
-		} catch (e) {
-			console.error(e);
-		}
-	}, [searchQuery]);
-
-	useEffect(() => {
-		try {
-			localStorage.setItem('filter', JSON.stringify(filter));
-		} catch (e) {
-			console.error(e);
-		}
-	}, [filter]);
-
+const TaskContextProvider: FC<Props> = ({
+	children,
+	appState,
+	setAppState,
+}) => {
 	const value: ITaskContext = {
-		searchQuery,
-		setSearchQuery,
-		filter,
-		setFilter,
+		searchQuery: appState.searchQuery,
+		setSearchQuery: (query) =>
+			setAppState((prev) => ({ ...prev, searchQuery: query })),
+		filter: appState.filter,
+		setFilter: (filter) => setAppState((prev) => ({ ...prev, filter })),
 	};
 
 	return <TaskContext.Provider value={value}>{children}</TaskContext.Provider>;

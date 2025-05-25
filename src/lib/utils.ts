@@ -12,3 +12,25 @@ export const isTaskNew = (arg: string) => {
 	const oneDayAgo = Date.now() - 24 * 60 * 60 * 1000;
 	return createdTime >= oneDayAgo;
 };
+
+export const loadState = (): AppState => {
+	try {
+		const serializedState = localStorage.getItem('appState');
+		if (serializedState === null) {
+			return { tasks: [], searchQuery: '', filter: 'all' };
+		}
+		return JSON.parse(serializedState);
+	} catch (err) {
+		console.error('Ошибка при загрузке состояния:', err);
+		return { tasks: [], searchQuery: '', filter: 'all' };
+	}
+};
+
+export const saveState = (state: AppState) => {
+	try {
+		const serializedState = JSON.stringify(state);
+		localStorage.setItem('appState', serializedState);
+	} catch (err) {
+		console.error('Ошибка при сохранении состояния:', err);
+	}
+};

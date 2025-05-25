@@ -4,27 +4,18 @@ import TasksContainer from '@/components/tasks/TasksContainer.tsx';
 import ModalToggleButton from '@/components/buttons/ModalToggleButton.tsx';
 import Modal from '@/components/Modal.tsx';
 import { toast } from 'sonner';
-import { getNow } from '@/lib/utils.ts';
+import { getNow, loadState, saveState } from '@/lib/utils.ts';
 import Toolbar from '@/components/Toolbar.tsx';
 import TaskContextProvider from '@/components/context/TaskContextProvider.tsx';
 import { ThemeContextProvider } from '@/components/context/ThemeContextProvider.tsx';
 
 const App = () => {
-	const tasksFromLocalStorage: ITask[] = localStorage.getItem('tasks')
-		? JSON.parse(localStorage.getItem('tasks') as string)
-		: [];
-
-	const [tasks, setTasks] = useState<ITask[]>(tasksFromLocalStorage);
+	const [state, setState] = useState<AppState>(loadState());
 	const [show, setShow] = useState(false);
 
 	useEffect(() => {
-		try {
-			localStorage.setItem('tasks', JSON.stringify(tasks));
-		} catch (e) {
-			console.error(e);
-			toast('Не могу сохранить задачи');
-		}
-	}, [tasks]);
+		saveState(state);
+	}, [state]);
 
 	const toggleModal = () => {
 		setShow(!show);
@@ -44,21 +35,24 @@ const App = () => {
 			createdAt: getNow(),
 		};
 
-		setTasks((prevState) => [...prevState, newTask]);
+		setState((prev) => ({
+			...prev,
+			tasks: [...prev.tasks, newTask],
+		}));
 		setShow(!show);
 	};
-
 	const statusToggle = (_id: string) => {
-		setTasks((prevState) =>
-			prevState.map((item) =>
+		setState((prev) => ({
+			...prev,
+			tasks: prev.tasks.map((item) =>
 				item._id === _id ? { ...item, isComplete: !item.isComplete } : item,
 			),
-		);
+		}));
 	};
 
 	return (
 		<ThemeContextProvider>
-			<TaskContextProvider>
+			<TaskContextProvider appState={state} setAppState={setState}>
 				<div className="font-kanit bg-custom-white transition-color dark:bg-custom-black relative flex h-full duration-150">
 					<Toaster />
 					<Modal addTask={addTask} onToggle={toggleModal} show={show} />
@@ -72,7 +66,10 @@ const App = () => {
 							<Toolbar />
 						</div>
 						<div className="w-full max-w-[520px]">
-							<TasksContainer tasks={tasks} onStatusChange={statusToggle} />
+							<TasksContainer
+								tasks={state.tasks}
+								onStatusChange={statusToggle}
+							/>
 						</div>
 						<ModalToggleButton onClick={toggleModal} />
 					</div>

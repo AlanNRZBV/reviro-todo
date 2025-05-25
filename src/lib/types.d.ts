@@ -12,3 +12,9 @@ declare interface ITaskContext {
 	filter: string;
 	setFilter: (arg: string) => void;
 }
+
+declare interface AppState {
+	tasks: ITask[];
+	searchQuery: string;
+	filter: string;
+}
